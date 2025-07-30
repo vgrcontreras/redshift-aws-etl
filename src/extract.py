@@ -17,4 +17,3 @@ def extract_data() -> dict[str, Any]:
 
     response = requests.get(url, headers=headers)
     return response.json()
-
