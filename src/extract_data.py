@@ -2,6 +2,7 @@ import requests
 from dotenv import load_dotenv
 import os
 from typing import Any
+from loguru import logger
 
 load_dotenv()
 
@@ -15,5 +16,10 @@ def extract_and_load_data() -> dict[str, Any]:
         'x-cg-demo-api-key': X_CG_DEMO_API_KEY
     }
 
-    response = requests.get(url, headers=headers)
-    return response.json()
+    try:
+        response = requests.get(url, headers=headers)
+        logger.info(f'Data from API {url} retrieved successfully')
+
+        return response.json()
+    except Exception as e:
+        logger.error(f'Error fetching data from API {url}: {e}')
